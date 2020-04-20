@@ -1,11 +1,13 @@
 ---
 - include_tasks: setup_xfs.yml
+  tags: [setup_filesystem]
 
 - name: Reboot the machine with all defaults
   shell: sleep 2 && shutdown -r now "Reboot for changes to take effect"
   async: 1
   poll: 0
   ignore_errors: true
+  tags: [setup_filesystem]
 
 - name: Wait for the reboot to complete
   wait_for_connection:
@@ -13,5 +15,7 @@
     sleep: 5
     delay: 5
     timeout: 600
+  tags: [setup_filesystem]
 
 - include_tasks: ../base/general/setup_mount_permissions.yml
+  tags: [setup_filesystem]
